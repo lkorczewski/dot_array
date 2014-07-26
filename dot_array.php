@@ -1,6 +1,6 @@
 <?php
 
-class Dot_Array {
+class Dot_Array implements ArrayAccess {
 	
 	protected $separator = '.';
 	protected $array = [];
@@ -38,6 +38,32 @@ class Dot_Array {
 		$current_element = $value;
 		
 		return $this;
+	}
+	
+	//------------------------------------------------
+	// ArrayAccess interface
+	//------------------------------------------------
+	
+	function offsetExists($offset){
+		return isset($this->array[$offset]);
+	}
+	
+	function offsetGet($offset){
+		return $this->array[$offset];
+	}
+	
+	function offsetSet($offset, $value){
+		
+		if(is_null($offset)){
+			$this->array[] = $value;
+			return;
+		}
+		
+		$this->array[$offset] = $value;
+	}
+	
+	function offsetUnset($offset){
+		unset( $this->array[$offset]);
 	}
 	
 }

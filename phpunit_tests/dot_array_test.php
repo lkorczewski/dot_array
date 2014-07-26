@@ -53,5 +53,36 @@ class Dot_Array_Test extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($dot_array->get('three.gamma.bet'), 'DALET');
 		$this->assertNotEquals($dot_array->get(), $this->array);
 	}
+	
+	function test_array_access_appending(){
+		$expected_result = ['a', 'b', 'c'];
+		$dot_array = new Dot_Array();
+		$dot_array[] = 'a';
+		$dot_array[] = 'b';
+		$dot_array[] = 'c';
+		$this->assertEquals($dot_array->get(), $expected_result);	
+	}
+	
+	function test_array_access_setting(){
+		$expected_result = [
+			'one' => 'a',
+			'two' => 'b',
+		];
+		$dot_array = new Dot_Array();
+		$dot_array['one'] = 'a';
+		$dot_array['two'] = 'b';
+		$this->assertEquals($dot_array->get(), $expected_result);
+	}
+	
+	function test_array_access_getting(){
+		$dot_array = new Dot_Array([
+			'one'    => 'a',
+			'two'    => 'b',
+			'three'  => 'c',
+		]);
+		$this->assertEquals($dot_array['one'], 'a');
+		$this->assertEquals($dot_array['two'], 'b');
+		$this->assertEquals($dot_array['three'], 'c');
+	}
 }
 
