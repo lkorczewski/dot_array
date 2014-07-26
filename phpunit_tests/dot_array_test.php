@@ -26,6 +26,12 @@ class Dot_Array_Test extends PHPUnit_Framework_TestCase {
 		],
 	];
 	
+	protected $small_array = [
+		'one'    => 'a',
+		'two'    => 'b',
+		'three'  => 'c',
+	];
+	
 	function test_getting_existent_key(){
 		$dot_array = new Dot_Array($this->array);
 		$this->assertEquals($dot_array->get(), $this->array);
@@ -75,14 +81,20 @@ class Dot_Array_Test extends PHPUnit_Framework_TestCase {
 	}
 	
 	function test_array_access_getting(){
-		$dot_array = new Dot_Array([
-			'one'    => 'a',
-			'two'    => 'b',
-			'three'  => 'c',
-		]);
+		$dot_array = new Dot_Array($this->small_array);
 		$this->assertEquals($dot_array['one'], 'a');
 		$this->assertEquals($dot_array['two'], 'b');
 		$this->assertEquals($dot_array['three'], 'c');
+	}
+	
+	function test_array_access_unsetting(){
+		$expected_result = [
+			'one'    => 'a',
+			'three'  => 'c',
+		];
+		$dot_array = new Dot_Array($this->small_array);
+		unset($dot_array['two']);
+		$this->assertEquals($dot_array->get(), $expected_result);
 	}
 }
 
